@@ -3,8 +3,8 @@
 // at beggining only same size pictures
 var imagesNames = ['1', '2', '3', '4'];
 
-var picsInRow = 4;
-var picWidth = Math.round(100 / picsInRow);
+var picsInRow = 8;
+var picWidth = 100 / picsInRow;
 var mainImage = document.getElementById('images-container');
 var rowNumber;
 var picturesNumber;
