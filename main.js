@@ -26,7 +26,7 @@ var addImage = function(source, left, top){
   image.onload = function(){
     console.log(image.src);
     context.globalAlpha = 0.4;
-    context.drawImage(image, left, top, picWidth, picHeight);
+    context.drawImage(this, left, top, picWidth, picHeight);
     context.globalAlpha = 1;
   }
 }
@@ -45,11 +45,9 @@ var addPictures = function() {
 
     left = l * picWidth;
     top = t * picHeight;
-    // console.log(l, t);
-    // console.log(top, left)
     
     var src = 'images/' + imagesNames[j] + '.jpg';
-    // console.log(src)
+
     addImage(src, left, top);
     j++;
     l++;
