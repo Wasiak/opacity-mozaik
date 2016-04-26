@@ -20,11 +20,14 @@ var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
 var addImage = function(source, left, top){
-  // console.log(source)
+  console.log(source)
   image = new Image();
   image.src = source;
   image.onload = function(){
+    console.log(image.src);
+    context.globalAlpha = 0.4;
     context.drawImage(image, left, top, picWidth, picHeight);
+    context.globalAlpha = 1;
   }
 }
 
@@ -46,7 +49,7 @@ var addPictures = function() {
     // console.log(top, left)
     
     var src = 'images/' + imagesNames[j] + '.jpg';
-    console.log(src)
+    // console.log(src)
     addImage(src, left, top);
     j++;
     l++;
