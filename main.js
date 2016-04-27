@@ -14,6 +14,7 @@ var addedImages = 0;
 
 // add picture to get size of small images
 var pic = document.createElement('img');
+pic.id = 'control-image';
 mainImage.appendChild(pic);
 pic.src = 'images/' + imagesNames[0] + '.jpg';
 pic.style.width = picPercentageWidth + '%';
@@ -50,6 +51,7 @@ var makeGrey = function() {
     d[i] = d[i + 1] = d[i + 2] = v;
   }
   context.putImageData(pixels, 0, 0);
+  document.getElementById('loader').classList.remove('visible');
 }
 
 
@@ -89,7 +91,7 @@ pic.onload = function(evt) {
   picWidth = (picPercentageWidth /100) * canvas.offsetWidth;
   addPictures();
 
-  document.getElementsByTagName('img')[0].style.width = picPercentageWidth + '%';
+  document.getElementById('control-image').style.width = picPercentageWidth + '%';
 }
 
 
