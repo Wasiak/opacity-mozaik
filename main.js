@@ -10,6 +10,7 @@ var picHeight;
 var mainImage = document.getElementById('images-container');
 var rowNumber;
 var picturesNumber;
+var addedImages = 0;
 
 // add picture to get size of small images
 var pic = document.createElement('img');
@@ -21,16 +22,36 @@ var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
 var addImage = function(source, left, top){
-  console.log(source)
   image = new Image();
   image.src = source;
   image.onload = function(){
-    console.log(image.src);
     context.globalAlpha = 0.4;
     context.drawImage(this, left, top, picWidth, picHeight);
     context.globalAlpha = 1;
+    addedImages++;
+    // after load if addedNumber is equal to number of all pictures
+    // run filter function for whole canvas
+    if (addedImages === picturesNumber) {
+      makeGrey();
+    }
   }
 }
+
+var makeGrey = function() {
+  var pixels = context.getImageData(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+  var d = pixels.data;
+  for (var i = 0; i < d.length; i += 4) {
+    var r = d[i];
+    var g = d[i+1];
+    var b = d[i+2];
+    // CIE luminance for the RGB
+    // The human eye is bad at seeing red and blue, so we de-emphasize them.
+    var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    d[i] = d[i + 1] = d[i + 2] = v;
+  }
+  context.putImageData(pixels, 0, 0);
+}
+
 
 var addPictures = function() {
   // j is index of image in images array
