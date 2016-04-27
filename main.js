@@ -11,6 +11,7 @@ var mainImage = document.getElementById('images-container');
 var rowNumber;
 var picturesNumber;
 
+// add picture to get size of small images
 var pic = document.createElement('img');
 mainImage.appendChild(pic);
 pic.src = 'images/' + imagesNames[0] + '.jpg';
@@ -32,15 +33,20 @@ var addImage = function(source, left, top){
 }
 
 var addPictures = function() {
+  // j is index of image in images array
   var j = 0;
   var left = 0;
   var top = 0;
+  // t counter of row (from top)
   var t = 0;
+  // l counter of image left (l = index of photo from left side)
   var l = 0;
   for (i = 0; i < picturesNumber; i++) {
+    // if added last image return to first one
     j = j > imagesNames.length - 1 ? 0 : j;
-    
+    // if reach limit of images in row increase level of row form top
     t = l > picsInRow -1 ? t += 1 : t;
+    // if reach limit of photo in row, next photo has left 0 position
     l = l > picsInRow - 1 ? 0 : l;
 
     left = l * picWidth;
@@ -54,6 +60,7 @@ var addPictures = function() {
   }
 }
 
+// get and set size for small images
 pic.onload = function(evt) {
   rowNumber = Math.ceil(mainImage.offsetHeight / evt.target.offsetHeight);
   picturesNumber = rowNumber * picsInRow;
@@ -61,13 +68,7 @@ pic.onload = function(evt) {
   picWidth = (picPercentageWidth /100) * canvas.offsetWidth;
   addPictures();
 
-  var pictures = document.getElementsByTagName('img');
-  // make array from DOMelements
-  var myDOMArray = Array.prototype.slice.call(pictures);
-
-  myDOMArray.forEach(function(img) {
-    img.style.width = picPercentageWidth + '%';
-  });
+  document.getElementsByTagName('img')[0].style.width = picPercentageWidth + '%';
 }
 
 
